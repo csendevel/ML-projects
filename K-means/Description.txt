@@ -1,3 +1,3 @@
-Run k-means.py file to see result
+Run clustering.py file to see result
 
 Drawing implemented on stddraw library
