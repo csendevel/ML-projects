@@ -2,10 +2,10 @@ import copy
 
 class MST:
     def __init__(self, N, K):
-        self.N = N
-        self.K = K
-        self.dad = []
-        self.rnk = []
+        self.N = N # vertex quantity
+        self.K = K # clusters amount
+        self.dad = [] # dsu
+        self.rnk = [] # rank heuristic
         self.mass = []
         self.graph = []
         self.queue = []
@@ -56,6 +56,8 @@ class MST:
                     cnt += 1
         return self.mass
 
+    #---------Clusters and centroids count--------
+    
     def get_clusters(self, points):
         clus = 1
         for i in range(0 ,self.K):
