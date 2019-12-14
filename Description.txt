@@ -1,0 +1,2 @@
+This is implementation of EA (Genetic algorithm) for solve TSP
+Run GeneticAlgorithm.py to see result
