@@ -4,22 +4,22 @@ from MST import*
 from k_means import*
 from convex_hull import*
 
-N = 10000
-sample_N = 100
-K = 2
+N = 10000 # points quantity
+sample_N = 100 # points for testing data
+K = 2 # clusters amount
 
 mass = []
 edges = []
 mst = []
-center = [[130, 125], [700, 300]]
+center = [[130, 125], [700, 300]] # test centers of generated clusters
 
-gen = data_gen(center, N, K)
+gen = data_gen(center, N, K) # data generator
 dr = data_drawer(K)
 ch = convex_hull()
 m = MST(100, K)
 #mass = gen.normal_gen()
 #mass = gen.nested_data()
-mass = gen.get_random_data()
+mass = gen.get_random_data() # all points
 #mass = gen.get_real_random_data()
 #mass = gen.strip_data()
 sample = mass[ : sample_N]
@@ -34,30 +34,32 @@ km_obj = k_means(mass, K)
 #dr.draw_MST(mst, mass)
 #dr.draw_data(mass)
 
-sample_clusters = m.get_clusters(sample)
-centroids = m.get_centroids()
+sample_clusters = m.get_clusters(sample) # get clusters from hierarchical clustering
+centroids = m.get_centroids() # get center of clusters
 res = 0
 
+# nesting check 
 for k in range(K):
     convex = ch.convex_hull(sample_clusters[k])
     for i in centroids:
         if len(convex) != 0:
             if ch.is_inside(i, convex):
                 res += 1
-if res <= K:
+if res <= K: # data is not nested we use k-means algorithm
     print("k-means")
     result = km_obj._k_means()
     dr.draw_clusters(result)
     for k in range(K):
         convex = ch.convex_hull(result[k])
         dr.draw_convex(convex)
-else:
+else: # data is nested we use hierarchical algorithm
     print("tree")
     dr.draw_clusters(sample_clusters)
     for k in range(K):
         convex = ch.convex_hull(sample_clusters[k])
         dr.draw_convex(convex)
 
+# retraining on new data (50% of past data is saved for training)
 timed_data = [mass[:5000]]
 dataset = []
 for i in range(5):
