@@ -6,7 +6,7 @@ class convex_hull:
     def turn(self, a, b, c):
         return (b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0])
 
-    #build the convex hull
+    #build the convex hull (Graham algorithm)
     def convex_hull(self, mass):
         lower = []
         upper = []
