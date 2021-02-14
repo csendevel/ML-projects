@@ -115,10 +115,3 @@ def get_features(string, y, a):
         ds.append(MFCC(i))
 
     return (ds, y1)
-
-#a = get_features()
-
-#for i in a:
-#    for j in i:
-#        print(j, end=' ')
-#    print('\n')
